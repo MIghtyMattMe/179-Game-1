@@ -80,7 +80,6 @@ public class PlayerController : MonoBehaviour
             } else if (prevInputs[3] || prevInputs[1]) {
                     sprite.sprite = standing[2];
             } else {
-                print("setting sprite");
                 sprite.sprite = standing[0];
             }
         } else {
@@ -96,8 +95,11 @@ public class PlayerController : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, facing, interactDis, interactLayer.value);
             if (hit)
             {
-                //do something with interaction
-                Debug.Log(hit.transform.gameObject.name);
+                Interactable script;
+                if ((script = hit.transform.gameObject.GetComponent<Interactable>()) != null && !script.typing)
+                {
+                    script.TypeWords();
+                }
             }
         }
     }
