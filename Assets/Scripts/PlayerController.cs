@@ -88,19 +88,31 @@ public class PlayerController : MonoBehaviour
         }
         
         //Interact With Object
-        if (Input.GetMouseButton(0))
-        {
+        // if (Input.GetMouseButton(0))
+        // {
             Vector2 facing = transform.right;
             if (sprite.flipY == true) facing *= -1;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, facing, interactDis, interactLayer.value);
             if (hit)
             {
-                Interactable script;
-                if ((script = hit.transform.gameObject.GetComponent<Interactable>()) != null && !script.typing)
+                //make tv glow here
+                eventsController comp = hit.transform.gameObject.GetComponent<eventsController>();
+                Interactable script = hit.transform.gameObject.GetComponent<Interactable>();
+                if (comp != null && script != null && !script.typing)
                 {
-                    script.TypeWords();
+                    if (Input.GetKeyDown(KeyCode.E)) //if player raycast touches and player interacts with tv 
+                    {
+                        //tv turns on;
+                        script.TypeWords(comp.returnEvent());
+                        //if last event, trigger knock
+                    }
                 }
+                // Interactable script;
+                // if ((script = hit.transform.gameObject.GetComponent<Interactable>()) != null && !script.typing)
+                // {
+                //     script.TypeWords();
+                // }
             }
-        }
+        //}
     }
 }
