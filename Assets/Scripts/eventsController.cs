@@ -6,9 +6,12 @@ public class eventsController : MonoBehaviour
 {
     private string[] events;
     private int n;
+    private bool active;
+
     // Start is called before the first frame update
     void Start()
     {
+        active = true;
         events = new string[]
         {
             "Why you should be fearful about loosening migrant policies; is your job at risk?",
@@ -22,16 +25,22 @@ public class eventsController : MonoBehaviour
         int n = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     //return events, and then pop or trigger door event
     public string returnEvent()
     {
         string output = events[n];
         n += 1;
+        active = false;
         return output;
+    }
+
+    public int returnN()
+    {
+        return n;
+    }
+
+    public void reactivate()
+    {
+        active = true;
     }
 }

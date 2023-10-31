@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
                 //make tv glow here
                 eventsController comp = hit.transform.gameObject.GetComponent<eventsController>();
                 Interactable script = hit.transform.gameObject.GetComponent<Interactable>();
+                bed Bed = hit.transform.gameObject.GetComponent<bed>();
                 if (comp != null && script != null && !script.typing)
                 {
                     if (Input.GetKeyDown(KeyCode.E)) //if player raycast touches and player interacts with tv 
@@ -112,6 +113,13 @@ public class PlayerController : MonoBehaviour
                 // {
                 //     script.TypeWords();
                 // }
+                if (Bed != null) //mimimimi
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        Bed.sleep();
+                    }
+                }
             }
         //}
     }
