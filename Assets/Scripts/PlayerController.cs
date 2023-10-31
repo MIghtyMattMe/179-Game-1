@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
+    private AudioSource audioSource;
     Animator anim;
     public float speed = 1.0f;
     public LayerMask interactLayer;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public Sprite[] standing;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -65,6 +67,7 @@ public class PlayerController : MonoBehaviour
         // if no new inputs, player stops walking and sets standing sprite
         if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D)) {
             anim.enabled = false;
+            audioSource.Pause();
             if (prevInputs[0]) {
                 if (prevInputs[3] || prevInputs[1]) {
                     sprite.sprite = standing[3];
@@ -85,13 +88,17 @@ public class PlayerController : MonoBehaviour
         } else {
             prevInputs = new bool[4]{Input.GetKey(KeyCode.W), Input.GetKey(KeyCode.A), Input.GetKey(KeyCode.S), Input.GetKey(KeyCode.D)};
             anim.enabled = true;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
         
         //Interact With Object
         // if (Input.GetMouseButton(0))
         // {
             Vector2 facing = transform.right;
-            if (sprite.flipY == true) facing *= -1;
+            if (sprite.flipX == true) facing *= -1;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, facing, interactDis, interactLayer.value);
             if (hit)
             {
