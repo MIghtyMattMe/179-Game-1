@@ -11,6 +11,9 @@ public class Interactable : MonoBehaviour
     [SerializeField] private string words = "Test string\nSecond Line\nThird Line";
     [SerializeField] private AudioClip interactSound;
     public bool loopAudio = false;
+    public TMP_FontAsset newFont;
+    public float FontSize = 24f;
+    public Vector2 newPosition = new Vector2(0f, -100f);
     public float volume = 1.0f;
     private string blackOutStart = "<mark=#000000ff>";
     private string blackOutEnd = "</mark>";
