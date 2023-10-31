@@ -35,36 +35,6 @@ public class bed : MonoBehaviour
         eventsController tele = GameObject.Find("TV").GetComponent<eventsController>();
         string weekText = weekList[tele.returnN()];
         dayString.text = weekText;
-
-
-        float elapsedTime = Time.time - startTime;
-
-        if (fadingIn)
-        {
-            canvas.GetComponent<CanvasGroup>().alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
-
-            if (elapsedTime >= fadeDuration)
-            {
-                fadingIn = false;
-                startTime = Time.time;
-            }
-        }
-        else if (!fadingIn && !fadingOut)
-        {
-            if (elapsedTime >= stayDuration)
-            {
-                fadingOut = true;
-                startTime = Time.time;
-            }
-        }
-        else if (fadingOut)
-        {
-            canvas.GetComponent<CanvasGroup>().alpha = 1f - Mathf.Clamp01((elapsedTime - stayDuration) / fadeDuration);
-
-            if (elapsedTime - stayDuration >= fadeDuration)
-            {
-                return;
-            }
-        }
+        
     }
 }
